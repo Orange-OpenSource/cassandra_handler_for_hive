@@ -95,6 +95,12 @@
                 </goals>
                 <configuration>
                   <minimizeJar>false</minimizeJar>
+                  <relocations>
+                    <relocation>
+                      <pattern>org.jboss.netty</pattern>
+                      <shadedPattern>org.shaded.jboss.netty</shadedPattern>
+                    </relocation>
+                  </relocations>
                 </configuration>
               </execution>
             </executions>
