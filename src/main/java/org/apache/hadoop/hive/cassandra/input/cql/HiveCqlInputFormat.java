@@ -81,6 +81,7 @@ public class HiveCqlInputFormat extends InputFormat<VLongWritable, MapWritable>
     }
 
     ColumnFamilySplit cfSplit = cassandraSplit.getSplit();
+    LOG.info("CYRIL ColumnFamilySplit : " + cfSplit.toString());
     Job job = new Job(jobConf);
 
     TaskAttemptContext tac = new TaskAttemptContextImpl(job.getConfiguration(), new TaskAttemptID()) {
