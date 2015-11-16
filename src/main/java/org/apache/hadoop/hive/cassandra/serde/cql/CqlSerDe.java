@@ -31,7 +31,7 @@ import org.apache.hadoop.hive.cassandra.serde.AbstractCassandraSerDe;
 import org.apache.hadoop.hive.cassandra.serde.CassandraLazyFactory;
 import org.apache.hadoop.hive.serde.Constants;
 import org.apache.hadoop.hive.serde2.SerDeException;
-import org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe;
+import org.apache.hadoop.hive.serde2.lazy.LazySerDeParameters;
 import org.apache.hadoop.hive.serde2.lazy.objectinspector.LazySimpleStructObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.ObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.ObjectInspector.Category;
@@ -124,7 +124,7 @@ public class CqlSerDe extends AbstractCassandraSerDe {
       cassandraColumnNamesText.add(new Text(columnName));
     }
 
-    serdeParams = LazySimpleSerDe.initSerdeParams(job, tbl, serdeName);
+    serdeParams = new LazySerDeParameters(job, tbl, serdeName);
 
     validatorType = parseOrCreateValidatorType(tbl);
 

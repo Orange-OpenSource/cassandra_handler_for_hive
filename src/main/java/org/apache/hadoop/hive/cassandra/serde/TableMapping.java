@@ -24,7 +24,7 @@ import org.apache.cassandra.utils.ByteBufferUtil;
 import org.apache.hadoop.hive.serde2.ByteStream;
 import org.apache.hadoop.hive.serde2.SerDeUtils;
 import org.apache.hadoop.hive.serde2.lazy.LazyCassandraUtils;
-import org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe.SerDeParameters;
+import org.apache.hadoop.hive.serde2.lazy.LazySerDeParameters;
 import org.apache.hadoop.hive.serde2.lazy.LazyUtils;
 import org.apache.hadoop.hive.serde2.objectinspector.*;
 import org.apache.hadoop.hive.serde2.objectinspector.ObjectInspector.Category;
@@ -54,7 +54,7 @@ public abstract class TableMapping {
   private final boolean[] needsEscape; // which chars need to be escaped. This array should have size
 
 
-  protected TableMapping(String colFamily, List<String> columnNames, SerDeParameters serdeParams) {
+  protected TableMapping(String colFamily, List<String> columnNames, LazySerDeParameters serdeParams) {
     this.cassandraColumnFamily = colFamily;
     this.cassandraColumnNames = columnNames;
 
@@ -124,8 +124,8 @@ public abstract class TableMapping {
     if (!isNotNull) {
       return null;
     }
-    byte[] key = new byte[serializeStream.getCount()];
-    System.arraycopy(serializeStream.getData(), 0, key, 0, serializeStream.getCount());
+    byte[] key = new byte[serializeStream.getLength()];
+    System.arraycopy(serializeStream.getData(), 0, key, 0, serializeStream.getLength());
 
     return key;
   }

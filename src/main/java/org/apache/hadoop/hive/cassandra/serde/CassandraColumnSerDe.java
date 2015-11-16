@@ -29,7 +29,7 @@ import org.apache.hadoop.hive.cassandra.input.LazyCassandraRow;
 import org.apache.hadoop.hive.cassandra.output.CassandraPut;
 import org.apache.hadoop.hive.serde.Constants;
 import org.apache.hadoop.hive.serde2.SerDeException;
-import org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe;
+import org.apache.hadoop.hive.serde2.lazy.LazySerDeParameters;
 import org.apache.hadoop.hive.serde2.lazy.objectinspector.LazySimpleStructObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.ObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.ObjectInspector.Category;
@@ -136,7 +136,7 @@ public class CassandraColumnSerDe extends AbstractCassandraSerDe {
 
         iKey = cassandraColumnNames.indexOf(CassandraColumnSerDe.CASSANDRA_KEY_COLUMN);
 
-        serdeParams = LazySimpleSerDe.initSerdeParams(job, tbl, serdeName);
+        serdeParams = new LazySerDeParameters(job, tbl, serdeName);
 
         validatorType = parseOrCreateValidatorType(tbl);
 

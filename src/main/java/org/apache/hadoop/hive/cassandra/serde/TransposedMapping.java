@@ -22,7 +22,7 @@ import org.apache.hadoop.hive.cassandra.output.CassandraColumn;
 import org.apache.hadoop.hive.cassandra.output.CassandraPut;
 import org.apache.hadoop.hive.cassandra.output.CassandraSuperPut;
 import org.apache.hadoop.hive.serde2.SerDeException;
-import org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe.SerDeParameters;
+import org.apache.hadoop.hive.serde2.lazy.LazySerDeParameters;
 import org.apache.hadoop.hive.serde2.objectinspector.StructField;
 import org.apache.hadoop.io.Writable;
 
@@ -42,7 +42,7 @@ public class TransposedMapping extends TableMapping {
   public TransposedMapping(
       String colFamily,
       List<String> columnNames,
-      SerDeParameters serdeParams) throws SerDeException {
+      LazySerDeParameters serdeParams) throws SerDeException {
     super(colFamily, columnNames, serdeParams);
       this.iKey = cassandraColumnNames.indexOf(CassandraColumnSerDe.CASSANDRA_KEY_COLUMN);
     init();

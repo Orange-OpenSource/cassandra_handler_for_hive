@@ -22,7 +22,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hive.serde2.SerDe;
 import org.apache.hadoop.hive.serde2.SerDeException;
 import org.apache.hadoop.hive.serde2.SerDeStats;
-import org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe;
+import org.apache.hadoop.hive.serde2.lazy.LazySerDeParameters;
 import org.apache.hadoop.hive.serde2.objectinspector.ObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.StructField;
 import org.apache.hadoop.hive.serde2.objectinspector.StructObjectInspector;
@@ -96,7 +96,7 @@ public abstract class AbstractCassandraSerDe implements SerDe{
     protected TableMapping mapping;
 
     protected ObjectInspector cachedObjectInspector;
-    protected LazySimpleSerDe.SerDeParameters serdeParams;
+    protected LazySerDeParameters serdeParams;
     protected String cassandraKeyspace;
     protected Map<String,String> cassandraCredentials;
 	protected String cassandraColumnFamily;

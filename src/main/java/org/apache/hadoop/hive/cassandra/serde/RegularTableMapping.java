@@ -20,7 +20,7 @@ package org.apache.hadoop.hive.cassandra.serde;
 
 import org.apache.hadoop.hive.cassandra.output.CassandraColumn;
 import org.apache.hadoop.hive.cassandra.output.CassandraPut;
-import org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe.SerDeParameters;
+import org.apache.hadoop.hive.serde2.lazy.LazySerDeParameters;
 import org.apache.hadoop.hive.serde2.objectinspector.MapObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.ObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.StructField;
@@ -39,7 +39,7 @@ public class RegularTableMapping extends TableMapping {
   public RegularTableMapping(
       String colFamily,
       List<String> columnNames,
-      SerDeParameters serdeParams) {
+      LazySerDeParameters serdeParams) {
     super(colFamily, columnNames, serdeParams);
       this.iKey = cassandraColumnNames.indexOf(CassandraColumnSerDe.CASSANDRA_KEY_COLUMN);
   }
@@ -99,9 +99,9 @@ public class RegularTableMapping extends TableMapping {
             serialize(entry.getKey(), koi,koi, 3);
 
             // Get the column-qualifier
-            byte[] columnQualifier = new byte[serializeStream.getCount()];
+            byte[] columnQualifier = new byte[serializeStream.getLength()];
             System.arraycopy(serializeStream.getData(), 0, columnQualifier, 0,
-                serializeStream.getCount());
+                serializeStream.getLength());
 
             // Get the Value
             serializeStream.reset();
@@ -110,8 +110,8 @@ public class RegularTableMapping extends TableMapping {
             if (!isNotNull) {
               continue;
             }
-            byte[] value = new byte[serializeStream.getCount()];
-            System.arraycopy(serializeStream.getData(), 0, value, 0, serializeStream.getCount());
+            byte[] value = new byte[serializeStream.getLength()];
+            System.arraycopy(serializeStream.getData(), 0, value, 0, serializeStream.getLength());
 
             CassandraColumn cc = new CassandraColumn();
             cc.setTimeStamp(System.currentTimeMillis());

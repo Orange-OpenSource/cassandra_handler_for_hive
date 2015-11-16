@@ -21,7 +21,7 @@ package org.apache.hadoop.hive.cassandra.serde.cql;
 import org.apache.hadoop.hive.cassandra.output.cql.CqlColumn;
 import org.apache.hadoop.hive.cassandra.output.cql.CqlPut;
 import org.apache.hadoop.hive.cassandra.serde.TableMapping;
-import org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe.SerDeParameters;
+import org.apache.hadoop.hive.serde2.lazy.LazySerDeParameters;
 import org.apache.hadoop.hive.serde2.objectinspector.MapObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.ObjectInspector;
 import org.apache.hadoop.hive.serde2.objectinspector.StructField;
@@ -36,7 +36,7 @@ public class CqlRegularTableMapping extends TableMapping {
     public CqlRegularTableMapping(
             String colFamily,
             List<String> columnNames,
-            SerDeParameters serdeParams) {
+            LazySerDeParameters serdeParams) {
         super(colFamily, columnNames, serdeParams);
     }
 
@@ -85,8 +85,8 @@ public class CqlRegularTableMapping extends TableMapping {
                         serialize(entry.getKey(), koi, koi, 3);
 
                         // Get the column-qualifier
-                        byte[] columnQualifier = new byte[serializeStream.getCount()];
-                        System.arraycopy(serializeStream.getData(), 0, columnQualifier, 0, serializeStream.getCount());
+                        byte[] columnQualifier = new byte[serializeStream.getLength()];
+                        System.arraycopy(serializeStream.getData(), 0, columnQualifier, 0, serializeStream.getLength());
 
                         // Get the Value
                         serializeStream.reset();
@@ -95,8 +95,8 @@ public class CqlRegularTableMapping extends TableMapping {
                         if (!isNotNull) {
                             continue;
                         }
-                        byte[] value = new byte[serializeStream.getCount()];
-                        System.arraycopy(serializeStream.getData(), 0, value, 0, serializeStream.getCount());
+                        byte[] value = new byte[serializeStream.getLength()];
+                        System.arraycopy(serializeStream.getData(), 0, value, 0, serializeStream.getLength());
 
                         CqlColumn cqlColumn = new CqlColumn();
                         cqlColumn.setColumn(cassandraColumn.getBytes());
