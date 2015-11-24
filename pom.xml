@@ -98,7 +98,11 @@
                   <relocations>
                     <relocation>
                       <pattern>org.jboss.netty</pattern>
-                      <shadedPattern>org.shaded.jboss.netty</shadedPattern>
+                      <shadedPattern>shaded.org.jboss.netty</shadedPattern>
+                    </relocation>
+                    <relocation>
+                      <pattern>com.google.common</pattern>
+                      <shadedPattern>shaded.com.google.common</shadedPattern>
                     </relocation>
                   </relocations>
                   <filters>
@@ -183,7 +187,7 @@
             <artifactId>cassandra-all</artifactId>
             <version>2.1.11</version>
             <type>jar</type>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
