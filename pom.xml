@@ -6,15 +6,22 @@
     <version>2.1.11</version>
 
     <repositories>
-        <repository>
-            <id>apache-repository</id>
-            <url>https://repository.apache.org/content/groups/public/</url>
-        </repository>
+
+       <repository>
+           <id>localrepo</id>
+           <url>file://${project.basedir}/localrepo</url>
+       </repository>
 
        <repository>
            <id>hortonworks</id>
            <url>http://repo.hortonworks.com/content/groups/public/</url>
        </repository>
+
+        <repository>
+            <id>apache-repository</id>
+            <url>https://repository.apache.org/content/groups/public/</url>
+        </repository>
+
     </repositories>
 
 
